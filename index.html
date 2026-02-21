@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>4択英文ゲーム</title>
+  <style>
+  
+  </style>
+
+<link rel="stylesheet" href="style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+  <h1 id="title">よんたくん<br>中学英文法</h1>
+
+  <!-- ① 目次（鐘選択画面） -->
+  <div id="menu">
+
+    <img src="images/menu01.png" alt="メニューイラスト" id="menuIllustration">
+
+    <h2>分野を選んでください</h2>
+    <div id="categoryList"></div>
+  </div>
+
+  <!-- ② クイズ画面 -->
+  <div id="quiz" style="display:none;">
+    <div id="progress"></div>
+
+    <div id="finishMessage" style="display:none;"></div>
+    
+    <div id="sentence"></div>
+
+    
+
+
+
+    <div id="score"></div>
+
+    <div id="rankWrap">
+    <div id="rank"></div>
+    </div>
+
+    <img
+  id="perfectIllustration"
+  src="images/perfect.png"
+  alt="Perfect イラスト"
+  style="display:none;"
+>
+    
+    <div id="choices"></div>
+
+    <div id="result"></div>
+    <div id="explanationWrap">
+  <div id="explanation"></div>
+
+  <button id="youtubeBtn" style="display:none;">
+     ▶ 解説動画を見る
+    </button>
+
+
+</div>
+    
+    <div id="youtubeArea" style="display:none; margin-top:16px;"></div>
+
+
+
+<div id="buttonArea">
+
+    
+     
+  <button id="nextBtn">次へ</button>
+  <button id="retryBtn" style="display:none;">もう一度</button>
+  <button id="menuBtn" style="display:none;">目次へ</button>
+</div>
+
+    <div id="categoryScore" style="display:none;"></div>
+  </div>
+
+
+
+  
+
+  <script src="main.js"></script>
+</body>
+
+</html>

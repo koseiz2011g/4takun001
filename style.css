@@ -1,0 +1,325 @@
+ .highlight {
+      color: red;
+      font-weight: bold;
+    }
+
+    .correct {
+  color: blue;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: red;
+  font-weight: bold;
+}
+
+
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #4da3ff;
+  }
+  50% {
+    box-shadow: 0 0 25px #4da3ff;
+  }
+  100% {
+    box-shadow: 0 0 5px #4da3ff;
+  }
+}
+
+button.correct-btn {
+  background-color: #cce5ff;
+  color: #003366;
+  border: 2px solid #4da3ff;
+  animation: glow 1s ease-in-out infinite;
+  opacity: 1;
+}
+
+
+    button {
+      display: block;
+      margin: 1px 0;
+      align-items: stretch;      
+    }
+
+    #quiz {
+      
+      margin: 20px auto;
+         
+    }
+
+    #choices {
+      
+      max-width: 300px;
+      margin: 0 auto;
+
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* ← 最重要 */
+      text-align: center;
+    }
+
+    #choices button {
+      padding: 2px;
+      box-sizing: border-box;
+      margin: 12px 0; /* ← 縦方向の間隔を広げる */
+  }
+
+  #categoryList {
+  display: grid;
+  grid-template-columns: max-content;
+  justify-content: center; /* 中央配置（左寄せにしたいなら start） */
+  row-gap: 10px;
+}
+
+#categoryList button {
+  white-space: nowrap; /* 折り返さない */
+  padding: 2px;
+  width: 100%;
+  
+}
+
+
+    /* ★ タイトル用 */
+    #title {
+    color: blue;
+    font-size: 28px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    }
+
+    /* ★ 目次用 */
+    #menu {
+    
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    }
+
+    /* ★ 問題用 */
+    #sentence {
+    padding: 20px 12px;
+    font-size: 25px;
+    text-align: center; 
+        }
+
+    /* ★ スコア用 */
+    #score {
+    text-align: center;    
+    }
+    #rank {
+    text-align: center;
+    font-size: 30px;
+     font-weight: bold;
+     padding-bottom: 3px;        /* 下線との余白 */
+     
+     
+    }
+
+    #rank::after {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 2px;
+  background: #4da3ff;
+  margin: 2px auto 0;
+  border-radius: 2px;
+}
+
+  
+
+
+    #progress {
+    text-align: center;    
+    }
+    #result {
+    text-align: center;
+    font-size: 30px;
+    }
+
+    /* 最強指定 */
+#rank.perfect {
+  color: blue;}
+
+#rank.excellent {
+  color: blue;}
+
+#rank.good,
+#rank.tryagain {
+  color: red !important;
+}
+    
+#youtubeBtn {
+  display: block;        /* ← 重要：block にする */
+  width: auto;    /* ← 中身の幅にする（推奨） */
+    margin: 0 auto;     /* ← 左右 auto で中央 */
+    margin-bottom: 5px;
+  padding: 0px 2px;
+  background-color: #bd0505;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  
+  
+}
+
+    #nextBtn {    
+     width: 100%;
+      max-width: 300px;
+      margin: 0 auto;      
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* ← 最重要 */
+     text-align: center;    
+    }
+
+    #retryBtn {    
+     width: 100%;
+      max-width: 300px;
+      margin: 10px auto;      
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* ← 最重要 */
+    text-align: center;    
+    }
+
+
+
+#explanationWrap {
+  
+  min-height: 100px;
+  
+  text-align: center;
+  
+}
+
+#explanation {
+  padding: 8px 12px;
+  min-height: 100px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+#finishMessage {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 500;
+  margin: 32px 0;
+}
+
+
+
+
+    #menuBtn {    
+     width: 100%;
+      max-width: 300px;
+      margin: 5px auto;
+
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* ← 最重要 */
+    text-align: center;    
+    }
+
+
+    #menuIllustration {
+  display: block;
+  max-width: 400px;   /* イラストの最大幅 */
+  width: 80%;
+  margin: 0 auto 16px; /* 中央寄せ＋下に余白 */
+}
+
+#perfectIllustration {
+  display: block;
+  margin: 12px auto 0; /* 上に少し余白 */
+  max-width: 300px;
+  width: 80%;
+}
+
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#menuIllustration {
+  animation: floatUpDown 2.5s ease-in-out infinite;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+#perfectIllustration {
+  animation: pop 0.4s ease-out;
+}
+
+
+   @media (max-width: 600px) {
+  body {
+    padding: 12px;    
+  }
+
+  #quiz {
+    
+    max-width: 95%;
+  }
+
+  #sentence {
+    font-size: 26px;
+    max-width: 95%;
+    padding-bottom: 30px;
+    text-align: left;
+  }
+
+  button {
+    font-size: 20px;
+    padding: 2px;
+    
+  }
+
+  #result {
+    font-size: 30px;
+    padding-bottom: 30px;
+  }
+
+  #explanation {
+    font-size: 18px;
+    max-width: 95%;
+    text-align: left;
+  }
+
+#categoryList {
+    align-items: flex-start; /* 左寄せ */
+  }
+
+  #categoryList button {
+    margin-left: 0;
+    margin-right: auto;      /* 左に寄せる */
+  }
+
+  #finishMessage {
+    text-align: center;
+  }
+
+  #menuIllustration {
+    max-width: 400px;
+    margin-bottom: 12px;
+  }
+
+
+
+}
+
+   
