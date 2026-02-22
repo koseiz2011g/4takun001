@@ -430,7 +430,9 @@ currentCategoryKey = key;
   currentIndex = 0;
   score = 0;
 
-  // ★ここを追加
+  stateHistory = []; // ★問題履歴
+
+  
   const rankEl = document.getElementById("rank");
   rankEl.style.display = "block";
   rankEl.textContent = "";
@@ -452,6 +454,8 @@ let currentCategoryKey = "";
 let categoryScores ={};
 let clearedItems =
   JSON.parse(localStorage.getItem("clearedItems")) || {};
+
+let stateHistory = []; // ← ★これを必ず追加
 
 
   
@@ -568,28 +572,52 @@ function clearStar(key) {
 // 問題表示
 function showQuestion() {
 
+
+
   sentenceEl.style.display = "block"; // ← ★必ず戻す
-  
+  document.getElementById("quiz").style.display = "block"; // ← 追加
+
   document.getElementById("categoryScore").style.display = "none";
   document.getElementById("finishMessage").textContent = "";
-   document.getElementById("quiz").style.display = "block"; // ← 追加
+   
 
   resultEl.textContent = "";
   resultEl.className = "";
+
+  explanationEl.innerHTML = "";
+  explanationEl.style.display = "block";
+
+ // 解説エリアを必ず表示状態に戻す
+const explanationWrap = document.getElementById("explanationWrap");
+explanationWrap.style.display = "block";
 
   // Perfectイラストを必ず非表示にする
 const perfectImg = document.getElementById("perfectIllustration");
 perfectImg.style.display = "none";
 
-   // 解説エリアを再表示
-  const explanationArea = document.getElementById("explanationWrap");
-  explanationArea.style.display = "block";
+const backBtn = document.getElementById("backBtn");
 
+if (currentIndex === 0) {
+  backBtn.style.display = "none";
+} else {
+  backBtn.style.display = "block";
+}
+
+
+
+  const q = questions[currentIndex];
+  const saved = stateHistory[currentIndex];
 
   explanationEl.textContent = "";
   explanationEl.innerHTML = "";
 
   choicesEl.innerHTML = "";
+
+  const youtubeBtn = document.getElementById("youtubeBtn");
+   if (backBtn) {
+    backBtn.style.display = currentIndex === 0 ? "none" : "block";
+  }
+
   nextBtn.style.display = "none";
   retryBtn.style.display = "none";
 
@@ -598,7 +626,7 @@ perfectImg.style.display = "none";
   youtubeArea.innerHTML = "";
   youtubeBtn.style.display = "none";
  
-  answered = false; // ← ★ここでリセット
+  
 
   choiceButtons = [];
 
@@ -609,8 +637,12 @@ perfectImg.style.display = "none";
   // スコア
   scoreEl.textContent = `スコア：${score}`;
 
-  const q = questions[currentIndex];
   sentenceEl.innerHTML = q.sentence;
+
+  console.log("sentence:", sentenceEl.innerHTML);
+  console.log("quiz display:", document.getElementById("quiz").style.display);
+
+ 
 
   q.choices.forEach((choice, index) => {
     const button = document.createElement("button");
@@ -620,13 +652,43 @@ perfectImg.style.display = "none";
     choiceButtons.push(button);
   });
 
-console.log("sentence:", sentenceEl.innerHTML);
-console.log("quiz display:", document.getElementById("quiz").style.display);
+  if (saved) {
+    answered = true;
+    choiceButtons.forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.correct) btn.classList.add("correct-btn");
+      if (!saved.isCorrect && i === saved.selectedIndex) {
+        btn.classList.add("incorrect");
+      }
+    });
+
+    resultEl.textContent = saved.isCorrect ? "正解！" : "不正解…";
+    explanationEl.innerHTML = q.explanation.replace(/。/g, "。<br>");
+
+    nextBtn.style.display = "block";
+
+  } else {
+    // ★★★★★ 新規問題モード ★★★★★
+    answered = false;
+    nextBtn.style.display = "none";
+  }
+
+  explanationEl.style.display = "block";
 
 }
 
 
 
+
+
+
+
+
+
+
+
+
+ 
 function checkAnswer(selected) {
   if (answered) return;
   answered = true;
@@ -664,7 +726,7 @@ function checkAnswer(selected) {
 
   let html = q.explanation;
 
-
+ 
 
 const youtubeBtn  = document.getElementById("youtubeBtn");
 const youtubeArea = document.getElementById("youtubeArea");
@@ -694,6 +756,7 @@ if (q.youtube) {
 }
 
 
+
 explanationEl.innerHTML = html;
 
 // 解説文を取得
@@ -709,7 +772,18 @@ explanationEl.innerHTML = explanationText;
 
 
 
-  nextBtn.style.display = "block";
+nextBtn.style.display = "block";
+
+
+
+   // ★★★ ここが追加 ★★★
+  const isCorrect = selected === q.correct;
+
+  stateHistory[currentIndex] = {
+    selectedIndex: selected,
+    isCorrect: isCorrect
+  };
+
 }
 
 
@@ -852,6 +926,13 @@ menuBtn.onclick = () => {
 
 
 
+backBtn.onclick = () => {
+document.getElementById("backBtn").style.display = "none";
+  if (currentIndex > 0) {
+    currentIndex--;
+    showQuestion();
+  }
+};
 
 
 // 最初の表示
